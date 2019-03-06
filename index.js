@@ -12,6 +12,7 @@ type Video {
 
 type Query {
 	video: Video
+	videos: [Video]
 }
 
 type Schema {
@@ -26,11 +27,12 @@ const resolvers = {
 		duration: 180,
 		watched: true,
 	}),
+	videos: () => videos,
 };
 
 const query = `
 	query myFirstQuery {
-		video {
+		videos {
 			id
 			title
 			duration
@@ -38,6 +40,21 @@ const query = `
 		}
 	}
 `;
+
+const videos = [
+	{
+		id: 'a',
+		title: 'Drinking from the magic well',
+		duration: 120,
+		watched: false,
+	},
+	{
+		id: 'b',
+		title: 'The moose and the machine',
+		duration: 240,
+		watched: true,
+	}
+]
 
 graphql(schema, query, resolvers)
 	.then(result => console.log(result))
