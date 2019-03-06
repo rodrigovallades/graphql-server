@@ -13,6 +13,14 @@ const videos = [
 	}
 ];
 
+const getObjectById = (type, id) => {
+	const types = {
+		video: getVideoById,
+	}
+
+	return types[type](id);
+};
+
 const getVideoById = (id) => new Promise((resolve) => {
 	const [video] = videos.filter((video) => video.id === id);
 	resolve(video);
@@ -33,6 +41,7 @@ const createVideo = ({ title, duration, released }) => {
 	return video;
 }
 
+exports.getObjectById = getObjectById;
 exports.getVideoById = getVideoById;
 exports.getVideos = getVideos;
 exports.createVideo = createVideo;
